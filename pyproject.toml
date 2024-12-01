@@ -4,16 +4,19 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "stocks-portfolio"
-version = "1.0.0"
+version = "1.1.0"
 description = "Portfolio de Stocks"
+authors = [
+    {name = "Fernando Figueroa", email = "me@fena.dev"}
+]
 readme = "README.md"
-authors = [{ name = "Fernando Figueroa", email = "me@fena.dev" }]
-license = { file = "LICENSE" }
+license = {file = "LICENSE"}
 requires-python = ">=3.10"
 dependencies = [
     "pandas>=2.2.3",
     "yfinance>=0.2.50",
     "python-dateutil>=2.9.0",
+    "streamlit>=1.32.0",
 ]
 
 [project.optional-dependencies]

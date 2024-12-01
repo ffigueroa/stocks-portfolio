@@ -1,7 +1,7 @@
 """Utilidades de datos de mercado para operaciones con acciones."""
 
 from datetime import datetime, timedelta
-from typing import Optional
+from typing import Optional, Tuple
 
 import pandas as pd
 import yfinance as yf  # type: ignore
@@ -32,10 +32,18 @@ def get_stock_history(
 def get_stock_price(symbol: str, date: datetime) -> float:
     """Obtiene el precio de cierre de una acción para una fecha específica."""
     try:
+        # Intentamos obtener el precio para la fecha específica
         hist = get_stock_history(symbol, start=date)
-        if len(hist) == 0:
-            raise ValueError(f"No hay datos disponibles para {symbol} en {date}")
-        return float(hist["Close"].iloc[0])
+        if len(hist) > 0:
+            return float(hist["Close"].iloc[0])
+
+        # Si no hay datos para esa fecha, buscamos el último precio disponible
+        # Buscamos hasta 10 días antes para encontrar el último precio
+        hist = get_stock_history(symbol, start=date - timedelta(days=10), end=date)
+        if len(hist) > 0:
+            return float(hist["Close"].iloc[-1])  # Tomamos el último precio disponible
+
+        raise ValueError(f"No se encontraron datos históricos para {symbol}")
     except Exception as e:
         raise ValueError(f"Error al obtener el precio para {symbol}: {str(e)}")
 
@@ -78,3 +86,45 @@ def validate_symbol(symbol: str) -> None:
 
     except Exception as e:
         raise ValueError(f"Error al validar {symbol}: {str(e)}")
+
+
+def validate_dates(start_date: str, end_date: str) -> Tuple[datetime, datetime]:
+    """
+    Valida y convierte las fechas.
+
+    Args:
+        start_date: Fecha inicial en formato YYYY-MM-DD
+        end_date: Fecha final en formato YYYY-MM-DD
+
+    Returns:
+        tuple: (fecha_inicial, fecha_final) como objetos datetime
+
+    Raises:
+        ValueError: Si las fechas son inválidas
+    """
+    try:
+        start = datetime.strptime(start_date, "%Y-%m-%d")
+        end = datetime.strptime(end_date, "%Y-%m-%d")
+    except ValueError:
+        raise ValueError("Las fechas deben estar en formato YYYY-MM-DD")
+
+    if end < start:
+        raise ValueError("La fecha final debe ser posterior a la inicial")
+
+    return start, end
+
+
+def calculate_years_between(start: datetime, end: datetime) -> float:
+    """
+    Calcula los años transcurridos entre dos fechas.
+
+    Args:
+        start: Fecha inicial
+        end: Fecha final
+
+    Returns:
+        float: Años transcurridos (puede ser fracción)
+    """
+    # Calculamos la diferencia en días
+    delta = end - start
+    return max(delta.days / 365.25, 0.003)  # Mínimo ~1 día en años
