@@ -87,6 +87,7 @@ def validate_symbol(symbol: str) -> None:
     except Exception as e:
         raise ValueError(f"Error al validar {symbol}: {str(e)}")
 
+
 def validate_dates(start_date: str, end_date: str) -> Tuple[datetime, datetime]:
     """
     Valida y convierte las fechas.
