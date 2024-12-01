@@ -5,7 +5,18 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.1.0] - 2024-03-01
+## [1.1.1] - 2024-12-01
+
+### Mejorado
+- Mejorada la interacción del formulario en la interfaz Streamlit
+- Simplificada la selección de símbolos con opción manual/predefinida
+- Reorganizado el layout en dos columnas para mejor visualización
+- Optimizada la presentación de métricas y detalles del portfolio
+
+### Corregido
+- Ajustada la persistencia del estado del portfolio en la sesión
+
+## [1.1.0] - 2024-12-01
 
 ### Agregado
 - Interfaz web con Streamlit para análisis interactivo del portfolio
@@ -25,7 +36,7 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 - Obtención de precios para días no hábiles en cálculo de portfolio
 
 
-## [1.0.0] - 2024-02-29
+## [1.0.0] - 2024-11-29
 
 ### Agregado
 - Implementación inicial de portfolio
