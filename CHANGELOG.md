@@ -11,6 +11,16 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 - Se agrega el cálculo de retorno anualizado para las acciones
 - Se agrega annualized_return a los tipos estáticos para los resultados del portfolio y las acciones
 
+## [1.1.1] - 2024-12-01
+
+### Mejorado
+- Mejorada la interacción del formulario en la interfaz Streamlit
+- Simplificada la selección de símbolos con opción manual/predefinida
+- Reorganizado el layout en dos columnas para mejor visualización
+- Optimizada la presentación de métricas y detalles del portfolio
+
+### Corregido
+- Ajustada la persistencia del estado del portfolio en la sesión
 
 ## [1.1.0] - 2024-12-01
 
