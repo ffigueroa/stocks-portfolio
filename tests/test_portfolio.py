@@ -2,7 +2,7 @@ import unittest
 from typing import cast
 
 from classes.portfolio import Portfolio
-from custom_types import PortfolioResult
+from models.portfolio import PortfolioResult
 
 
 class TestPortfolio(unittest.TestCase):

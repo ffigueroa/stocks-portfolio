@@ -2,8 +2,8 @@
 
 import pandas as pd
 
-from custom_types import StockResult
-from utils.market_utils import get_next_trading_day, get_stock_price, validate_symbol
+from models.stock import StockResult
+from utils import get_next_trading_day, get_stock_price, validate_symbol
 
 
 class Stock:

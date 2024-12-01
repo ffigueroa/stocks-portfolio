@@ -4,7 +4,7 @@ import unittest
 from typing import cast
 
 from classes.stock import Stock
-from custom_types import StockResult
+from models.portfolio import StockResult
 
 
 class TestStock(unittest.TestCase):
