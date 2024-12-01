@@ -1,4 +1,4 @@
-"""Formatting utilities for displaying data."""
+"""Utilidades de formato para mostrar datos."""
 
 import logging
 

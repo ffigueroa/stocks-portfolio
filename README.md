@@ -29,14 +29,18 @@ stocks/
 │   ├── __init__.py
 │   ├── stock.py      # Manejo de acciones individuales
 │   └── portfolio.py  # Gestión del portfolio
-├── utils/            # Utilidades
+├── models/          # Definiciones de tipos/modelos
 │   ├── __init__.py
-│   └── market_utils.py  # Utilidades de mercado
-├── tests/            # Tests unitarios
+│   ├── stock.py      # Tipos para acciones
+│   └── portfolio.py  # Tipos para portfolio
+├── utils/           # Utilidades
+│   ├── __init__.py
+│   ├── market.py     # Funciones de mercado
+│   └── formatting.py # Funciones de formateo
+├── tests/           # Tests unitarios
 │   ├── __init__.py
 │   ├── test_stock.py
 │   └── test_portfolio.py
-├── custom_types.py   # Tipos compartidos
 ├── example.py        # Ejemplo de uso
 ├── pyproject.toml    # Configuración del proyecto y dependencias
 ├── CHANGELOG.md      # Registro de cambios
@@ -167,6 +171,10 @@ git commit -m "feat: descripción del cambio"  # Usar Conventional Commits
 
 ## Características Técnicas
 
+- Arquitectura modular y bien organizada:
+  - `classes/`: Implementaciones principales
+  - `models/`: Definiciones de tipos
+  - `utils/`: Utilidades separadas por responsabilidad
 - Tipos estáticos con mypy para mayor seguridad
 - Documentación completa con docstrings
 - Manejo de errores con excepciones específicas
@@ -175,6 +183,7 @@ git commit -m "feat: descripción del cambio"  # Usar Conventional Commits
 - Commits convencionales con Commitizen
 - Pre-commit hooks para calidad de código
 - Configuración centralizada en pyproject.toml
+- CI/CD con GitHub Actions
 
 ## Limitaciones
 

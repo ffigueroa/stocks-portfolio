@@ -29,6 +29,9 @@ dev = [
     "types-python-dateutil>=2.9.0",
 ]
 
+[tool.setuptools]
+packages = ["models", "classes", "utils"]
+
 [tool.black]
 line-length = 100
 target-version = ['py310']
