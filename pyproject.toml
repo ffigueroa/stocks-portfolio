@@ -4,16 +4,19 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "stocks-portfolio"
-version = "1.0.0"
+version = "1.1.1"
 description = "Portfolio de Stocks"
+authors = [
+    {name = "Fernando Figueroa", email = "me@fena.dev"}
+]
 readme = "README.md"
-authors = [{ name = "Fernando Figueroa", email = "me@fena.dev" }]
-license = { file = "LICENSE" }
+license = {file = "LICENSE"}
 requires-python = ">=3.10"
 dependencies = [
     "pandas>=2.2.3",
     "yfinance>=0.2.50",
     "python-dateutil>=2.9.0",
+    "streamlit>=1.32.0",
 ]
 
 [project.optional-dependencies]
@@ -31,6 +34,37 @@ dev = [
 
 [tool.setuptools]
 packages = ["models", "classes", "utils"]
+
+[tool.poetry]
+name = "stocks-portfolio"
+version = "1.1.1"
+description = "Portfolio de Stocks"
+authors = ["Fernando Figueroa <me@fena.dev>"]
+readme = "README.md"
+license = "LICENSE"
+packages = [
+    { include = "models" },
+    { include = "classes" },
+    { include = "utils" }
+]
+
+[tool.poetry.dependencies]
+python = ">=3.10"
+pandas = ">=2.2.3"
+yfinance = ">=0.2.50"
+python-dateutil = ">=2.9.0"
+streamlit = ">=1.32.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=8.0.0"
+black = ">=24.1.1"
+mypy = ">=1.8.0"
+commitizen = ">=3.18.0"
+pre-commit = ">=3.6.2"
+flake8 = ">=7.0.0"
+isort = ">=5.13.2"
+pandas-stubs = ">=2.2.0"
+types-python-dateutil = ">=2.9.0"
 
 [tool.black]
 line-length = 100

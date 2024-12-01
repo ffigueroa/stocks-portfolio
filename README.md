@@ -11,6 +11,18 @@ Portfolio de Stocks que permite agregar acciones con fecha de compra, calcular b
 
 [Changelog](CHANGELOG.md)
 
+## Demo en Vivo 🚀
+
+Puedes probar la aplicación en vivo en:
+[Stock Portfolio Demo](https://stocks-portfolio-demo.streamlit.app)
+
+O ejecutar la versión local con:
+
+```bash
+streamlit run streamlit_app.py
+```
+
+
 ## Características
 
 - Manejo de múltiples acciones en un portfolio
