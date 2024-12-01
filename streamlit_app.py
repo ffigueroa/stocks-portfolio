@@ -12,7 +12,10 @@ from utils.formatting import format_currency, format_percentage
 if "portfolio" not in st.session_state:
     st.session_state.portfolio = Portfolio()
 
-st.set_page_config(page_title="Stock Portfolio Analyzer", page_icon="📈")
+st.set_page_config(
+    page_title="Stock Portfolio Analyzer",
+    page_icon="📈",
+)
 
 st.title("📈 Stock Portfolio Analyzer")
 st.markdown(
@@ -22,31 +25,88 @@ Ingresa los símbolos y fechas para calcular los rendimientos.
 """
 )
 
-# Sección para agregar stocks
-st.subheader("Agregar Acciones")
-with st.form("add_stock"):
-    symbol = st.text_input("Símbolo de la acción (ej: AAPL)", value="AAPL").upper()
-    purchase_date_input = st.date_input(
-        "Fecha de compra",
-        value=cast(date, datetime.now().date() - timedelta(days=30 * 3)),
-        max_value=datetime.now().date(),
-    )
+# Crear las columnas principales para la interfaz
+left_col, right_col = st.columns([1, 1])
 
-    if st.form_submit_button("Agregar Acción"):
-        try:
-            # Validar que tenemos una fecha válida
-            if isinstance(purchase_date_input, date):
-                # La clase Stock maneja automáticamente los días hábiles
-                st.session_state.portfolio.add_stock(
-                    symbol, purchase_date_input.strftime("%Y-%m-%d")
-                )
-                st.success(f"✅ Acción {symbol} agregada exitosamente")
-            else:
-                st.error("❌ Fecha de compra inválida")
-        except ValueError as e:
-            st.error(f"❌ Error: {str(e)}")
+# Columna izquierda para agregar stocks
+with left_col:
+    st.subheader("Agregar Acciones")
 
-# Mostrar resultados si hay stocks en el portfolio
+    # Checkbox fuera del formulario para que sea reactivo
+    use_manual = st.checkbox("Ingresar símbolo manualmente")
+
+    with st.form("add_stock"):
+        if use_manual:
+            symbol = st.text_input(
+                "Símbolo de la acción",
+                help="Ejemplo: MELI para MercadoLibre, GLOB para Globant, etc.",
+            ).upper()
+        else:
+            # Lista de símbolos populares con sus nombres
+            stock_options = {
+                "AAPL": "Apple Inc.",
+                "MSFT": "Microsoft Corporation",
+                "GOOGL": "Alphabet Inc.",
+                "AMZN": "Amazon.com Inc.",
+                "META": "Meta Platforms Inc.",
+                "TSLA": "Tesla Inc.",
+                "NVDA": "NVIDIA Corporation",
+                "JPM": "JPMorgan Chase & Co.",
+                "V": "Visa Inc.",
+                "WMT": "Walmart Inc.",
+                "KO": "Coca-Cola Company",
+                "DIS": "Walt Disney Company",
+                "NFLX": "Netflix Inc.",
+                "MELI": "MercadoLibre Inc.",
+                "GLOB": "Globant SA",
+            }
+
+            symbol = st.selectbox(
+                "Selecciona una acción",
+                options=list(stock_options.keys()),
+                format_func=lambda x: f"{x} - {stock_options[x]}",
+            )
+
+        purchase_date_input = st.date_input(
+            "Fecha de compra",
+            value=cast(date, datetime.now().date() - timedelta(days=30 * 3)),
+            max_value=datetime.now().date(),
+        )
+
+        if st.form_submit_button("Agregar Acción"):
+            try:
+                if isinstance(purchase_date_input, date):
+                    st.session_state.portfolio.add_stock(
+                        symbol, purchase_date_input.strftime("%Y-%m-%d")
+                    )
+                    st.success(f"✅ Acción {symbol} agregada exitosamente")
+                else:
+                    st.error("❌ Fecha de compra inválida")
+            except ValueError as e:
+                st.error(f"❌ Error: {str(e)}")
+
+# Columna derecha para mostrar el portfolio
+with right_col:
+    st.subheader("Acciones en el Portfolio")
+
+    if st.session_state.portfolio.stocks:
+        stock_data = []
+        for stock in st.session_state.portfolio.stocks:
+            stock_data.append(
+                {
+                    "Símbolo": stock.symbol,
+                    "Fecha de Compra": stock.purchase_date.strftime("%Y-%m-%d"),
+                    "Precio de Compra": format_currency(stock.purchase_price),
+                }
+            )
+
+        st.table(stock_data)
+    else:
+        st.info(
+            "Las acciones de tu portfolio aparecerán aquí una vez que agregues al menos una acción"
+        )
+
+# Después de agregar stocks y antes de la sección de análisis
 if st.session_state.portfolio.stocks:
     st.subheader("Análisis del Portfolio")
 
