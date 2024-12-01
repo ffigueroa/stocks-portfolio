@@ -1,4 +1,4 @@
-"""Models for the stocks portfolio package."""
+"""Modelos/Tipos de datos para el portfolio de stocks."""
 
 from .portfolio import PortfolioResult
 from .stock import StockResult

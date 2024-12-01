@@ -1,7 +1,8 @@
-"""Utility functions for the stocks portfolio package."""
+"""Utilidades para el portfolio de stocks."""
 
 from .formatting import format_currency, format_percentage, print_logo, print_stock_info
 from .market import (
+    calculate_annualized_return,
     calculate_years_between,
     get_next_trading_day,
     get_stock_history,
@@ -25,4 +26,5 @@ __all__ = [
     "validate_symbol",
     "calculate_years_between",
     "validate_dates",
+    "calculate_annualized_return",
 ]

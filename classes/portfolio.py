@@ -4,7 +4,7 @@ from typing import List
 
 from classes.stock import Stock
 from models.portfolio import PortfolioResult, StockResult
-from utils import calculate_years_between, validate_dates
+from utils.market import calculate_annualized_return, calculate_years_between, validate_dates
 
 
 class Portfolio:
@@ -72,19 +72,10 @@ class Portfolio:
             years = calculate_years_between(stock.purchase_date, end)
             weighted_years += years * (result["purchase_price"] / total_investment)
 
-        # Calcular retorno anualizado
+        # Calcular retorno anualizado del portfolio
         if total_investment > 0:
-            # Calcular el retorno total
             total_return = total_profit / total_investment
-
-            # Usar el promedio ponderado de años por inversión
-            if weighted_years > 0:
-                # Fórmula del retorno anualizado: (1 + r)^(1/t) - 1
-                # donde r es el retorno total y t es el tiempo en años
-                annualized_return = ((1 + total_return) ** (1 / weighted_years)) - 1
-            else:
-                # Si el período es muy corto, usar el retorno simple
-                annualized_return = total_return
+            annualized_return = calculate_annualized_return(total_return, weighted_years)
         else:
             annualized_return = 0.0
 
