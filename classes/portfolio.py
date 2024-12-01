@@ -6,7 +6,7 @@ from typing import List, Tuple
 from dateutil.relativedelta import relativedelta
 
 from classes.stock import Stock
-from custom_types import PortfolioResult, StockResult
+from models.portfolio import PortfolioResult, StockResult
 
 
 class Portfolio:

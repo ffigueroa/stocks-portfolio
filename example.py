@@ -4,7 +4,7 @@ import logging
 from typing import List, Tuple
 
 from classes.portfolio import Portfolio, PortfolioResult
-from utils.market_utils import format_currency, format_percentage, print_logo, print_stock_info
+from utils import format_currency, format_percentage, print_logo, print_stock_info
 
 # Configuración de logging
 logging.basicConfig(level=logging.INFO, format="%(message)s")
