@@ -1,7 +1,7 @@
 """Utilidades de datos de mercado para operaciones con acciones."""
 
 from datetime import datetime, timedelta
-from typing import Optional, Tuple
+from typing import Optional, Tuple, cast
 
 import pandas as pd
 import yfinance as yf  # type: ignore
@@ -128,3 +128,23 @@ def calculate_years_between(start: datetime, end: datetime) -> float:
     # Calculamos la diferencia en días
     delta = end - start
     return max(delta.days / 365.25, 0.003)  # Mínimo ~1 día en años
+
+
+def calculate_annualized_return(total_return: float, years: float) -> float:
+    """
+    Calcula el retorno anualizado basado en el retorno total y el período.
+
+    Args:
+        total_return: Retorno total (como fracción, ej: 0.10 para 10%)
+        years: Número de años del período (puede ser fraccionario)
+
+    Returns:
+        float: Retorno anualizado (como fracción)
+    """
+    if years > 0:
+        # Fórmula del retorno anualizado: (1 + r)^(1/t) - 1
+        # donde r es el retorno total y t es el tiempo en años
+        return cast(float, ((1 + total_return) ** (1 / years)) - 1)
+    else:
+        # Si el período es muy corto, usar el retorno simple
+        return total_return

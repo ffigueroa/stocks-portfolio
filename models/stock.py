@@ -12,3 +12,4 @@ class StockResult(TypedDict):
     purchase_price: float
     end_price: float
     profit: float
+    annualized_return: float

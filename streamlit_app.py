@@ -148,7 +148,9 @@ if st.session_state.portfolio.stocks:
                     st.metric("Beneficio Total", format_currency(results["total_profit"]))
                 with col3:
                     st.metric(
-                        "Retorno Anualizado", format_percentage(results["annualized_return"] * 100)
+                        "Retorno Anualizado",
+                        format_percentage(results["annualized_return"] * 100),
+                        help="Representa la tasa de rendimiento promedio por año.",
                     )
 
                 # Mostrar detalles por acción
@@ -159,7 +161,8 @@ if st.session_state.portfolio.stocks:
                         f"{stock['symbol']} - "
                         f"Comprado: {stock['purchase_date'].strftime('%Y-%m-%d')} - "
                         f"Beneficio: {format_currency(stock['profit'])} - "
-                        f"Rendimiento: {format_percentage(profit_percentage)}"
+                        f"Rendimiento: {format_percentage(profit_percentage)} - "
+                        f"Anualizado: {format_percentage(stock['annualized_return'] * 100)}"
                     )
                     with st.expander(expander_title):
                         st.write(f"Fecha de compra: {stock['purchase_date'].strftime('%Y-%m-%d')}")
@@ -167,6 +170,8 @@ if st.session_state.portfolio.stocks:
                         st.write(f"Precio actual: {format_currency(stock['end_price'])}")
                         st.write(f"Beneficio: {format_currency(stock['profit'])}")
                         st.write(f"Rendimiento: {format_percentage(profit_percentage)}")
+                        annualized_return = stock["annualized_return"] * 100
+                        st.write(f"Retorno Anualizado: {format_percentage(annualized_return)}")
 
         except ValueError as e:
             st.error(f"❌ Error: {str(e)}")

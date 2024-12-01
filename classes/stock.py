@@ -3,7 +3,13 @@
 import pandas as pd
 
 from models.stock import StockResult
-from utils import get_next_trading_day, get_stock_price, validate_symbol
+from utils.market import (
+    calculate_annualized_return,
+    calculate_years_between,
+    get_next_trading_day,
+    get_stock_price,
+    validate_symbol,
+)
 
 
 class Stock:
@@ -53,10 +59,16 @@ class Stock:
         end_price = get_stock_price(self.symbol, end_datetime)
         profit = end_price - self.purchase_price
 
+        # Calcular retorno anualizado
+        years = calculate_years_between(self.purchase_date, end_datetime)
+        total_return = profit / self.purchase_price
+        annualized_return = calculate_annualized_return(total_return, years)
+
         return {
             "symbol": self.symbol,
             "purchase_date": self.purchase_date,
             "purchase_price": self.purchase_price,
             "end_price": end_price,
             "profit": profit,
+            "annualized_return": annualized_return,
         }

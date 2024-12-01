@@ -130,7 +130,8 @@ AAPL:
   Precio de compra: $135.94
   Precio actual: $170.77
   Beneficio: $34.83
-  Rendimiento: 25.62%
+  Rendimiento: 35.62%
+  Retorno Anualizado: 25.62%
 ...
 
 Resumen del Portfolio:

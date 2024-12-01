@@ -15,6 +15,7 @@ def print_stock_info(stock: StockResult) -> None:
     logger.info(f"  Precio actual: {format_currency(stock['end_price'])}")
     logger.info(f"  Beneficio: {format_currency(stock['profit'])}")
     logger.info(f"  Rendimiento: {format_percentage(stock['profit']/stock['purchase_price']*100)}")
+    logger.info(f"  Retorno anualizado: {format_percentage(stock['annualized_return']*100)}")
 
 
 def format_currency(amount: float) -> str:
