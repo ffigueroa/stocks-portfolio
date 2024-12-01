@@ -30,6 +30,22 @@ jobs:
       run: |
         pytest
 
+    - name: Check types with mypy
+      run: |
+        mypy .
+
+    - name: Check style with black
+      run: |
+        black . --check
+
+    - name: Check imports with isort
+      run: |
+        isort . --check-only --diff
+
+    - name: Check style with flake8
+      run: |
+        flake8 .
+
     - name: Run example script
       run: |
         python example.py
