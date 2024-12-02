@@ -46,7 +46,13 @@ class Portfolio:
         Raises:
             ValueError: Si las fechas son inválidas o no hay datos disponibles
         """
-        if not self.stocks:
+        # Validar fechas
+        start, end = validate_dates(start_date, end_date)
+
+        # Filtrar acciones con fecha de compra anterior a la fecha de inicio
+        filtered_stocks = [stock for stock in self.stocks if stock.purchase_date >= start]
+
+        if not filtered_stocks:
             return {
                 "stocks": [],
                 "total_investment": 0.0,
@@ -54,16 +60,13 @@ class Portfolio:
                 "annualized_return": 0.0,
             }
 
-        # Validar fechas
-        _, end = validate_dates(start_date, end_date)
-
         # Calcular beneficios
         total_investment = 0.0
         total_profit = 0.0
         stocks_data: List[StockResult] = []
         weighted_years = 0.0
 
-        for stock in self.stocks:
+        for stock in filtered_stocks:
             result = stock.calculate_profit(end_date)
             total_investment += result["purchase_price"]
             total_profit += result["profit"]
