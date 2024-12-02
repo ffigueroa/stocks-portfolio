@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "stocks-portfolio"
-version = "1.2.0"
+version = "1.2.1"
 description = "Portfolio de Stocks"
 authors = [
     {name = "Fernando Figueroa", email = "me@fena.dev"}
@@ -37,7 +37,7 @@ packages = ["models", "classes", "utils"]
 
 [tool.poetry]
 name = "stocks-portfolio"
-version = "1.2.0"
+version = "1.2.1"
 description = "Portfolio de Stocks"
 authors = ["Fernando Figueroa <me@fena.dev>"]
 readme = "README.md"
